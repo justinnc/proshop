@@ -109,7 +109,7 @@ function CartScreen({ match, location, history }) {
                 disabled={cartItems.length === 0}
                 onClick={checkOutHandler}
               >
-                Proceed To Checkout{" "}
+                Proceed To Checkout
               </Button>
             </ListGroup.Item>
           </ListGroup>
