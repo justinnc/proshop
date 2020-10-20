@@ -11,6 +11,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Container>
           <h1>REACT HOOKS 🚀</h1>
           <Route path="/payment" component={PaymentScreen} exact />
+          <Route path="/placeorder" component={PlaceOrderScreen} exact />
           <Route path="/shipping" component={ShippingScreen} exact />
           <Route path="/login" component={loginScreen} exact />
           <Route path="/register" component={RegisterScreen} exact />
