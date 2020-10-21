@@ -6,15 +6,15 @@ import { createOrder } from "../actions/orderActions";
 import Message from "../components/Message";
 import CheckoutSteps from "../components/CheckoutSteps";
 
-const PlaceOrderScreen = ({ history }) => {
+const PlaceOrderScreen = ({ history, match }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
+  // Calculate prices
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
 
-  // Calculate prices
   cart.itemsPrice = addDecimals(
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
@@ -31,15 +31,17 @@ const PlaceOrderScreen = ({ history }) => {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;
 
+  console.log("match", match);
+  console.log("order", order);
+
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
     }
     // eslint-disable-next-line
-  }, [history, success]);
+  }, [history, order]);
 
   const placeOrderHandler = (e) => {
-    console.log("order");
     dispatch(
       createOrder({
         orderItems: cart.cartItems,

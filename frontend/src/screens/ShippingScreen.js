@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { saveShippingAddress } from "../actions/cartActions";
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 
 import FormContainer from "../components/FormContainer";
 import CheckoutSteps from "../components/CheckoutSteps";
@@ -15,6 +16,14 @@ const ShippingScreen = ({ history }) => {
   const [country, setCountry] = useState(shippingAddress.country);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      dispatch({
+        type: ORDER_CREATE_RESET,
+      })
+    );
+  }, [dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
