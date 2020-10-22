@@ -11,9 +11,9 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { ListProductDetails } from "../actions/productActions";
+
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-
 import Rating from "../components/Rating";
 
 const ProductScreen = ({ match, history }) => {
