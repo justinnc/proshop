@@ -16,7 +16,9 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Rating from "../components/Rating";
 
-const ProductScreen = ({ match, history }) => {
+const ProductScreen = ({ history, match }) => {
+  // console.log(props);
+  console.log(match, history);
   const [qty, setQty] = useState(1);
 
   const dispatch = useDispatch();
@@ -24,8 +26,8 @@ const ProductScreen = ({ match, history }) => {
     (state) => state.productDetails
   );
   useEffect(() => {
-    dispatch(ListProductDetails(match.params.id));
-  }, [dispatch, match]);
+    dispatch(ListProductDetails(match?.params?.id));
+  }, [dispatch]);
 
   const addToCardHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);

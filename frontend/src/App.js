@@ -1,6 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
+import { BrowserRouter as Router } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
 import Header from "./components/Header";
@@ -15,6 +14,7 @@ import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
+import MainApp from "./MainApp";
 
 function App() {
   return (
@@ -22,16 +22,7 @@ function App() {
       <Header />
       <main className="py-3">
         <Container>
-          <Route path="/order/:id" component={OrderScreen} exact />
-          <Route path="/payment" component={PaymentScreen} exact />
-          <Route path="/placeorder" component={PlaceOrderScreen} exact />
-          <Route path="/shipping" component={ShippingScreen} exact />
-          <Route path="/login" component={loginScreen} exact />
-          <Route path="/register" component={RegisterScreen} exact />
-          <Route path="/profile" component={ProfileScreen} exact />
-          <Route path="/product/:id" component={ProductScreen} />
-          <Route path="/cart/:id?" component={CartScreen} />
-          <Route path="/" component={HomeScreen} exact />
+          <MainApp />
         </Container>
       </main>
       <Footer />

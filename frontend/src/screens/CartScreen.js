@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Row,
   Col,
@@ -11,11 +11,15 @@ import {
   Card,
 } from "react-bootstrap";
 import { addToCart, removeCartItem } from "../actions/cartActions";
+import { useHistory, useLocation } from "react-router-dom";
 
 import Message from "../components/Message";
 
-function CartScreen({ match, location, history }) {
-  const productId = match.params?.id;
+function CartScreen({}) {
+  let history = useHistory();
+  let location = useLocation();
+  let { id } = useParams();
+
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
 
   const dispatch = useDispatch();
@@ -23,10 +27,10 @@ function CartScreen({ match, location, history }) {
   const { cartItems } = cart;
 
   useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, qty));
+    if (id) {
+      dispatch(addToCart(id, qty));
     }
-  }, [dispatch, productId, qty]);
+  }, [dispatch, id, qty]);
 
   const removeFromCartHandler = (id) => {
     dispatch(removeCartItem(id));

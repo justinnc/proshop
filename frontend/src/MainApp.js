@@ -1,10 +1,16 @@
 import React from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
-import { useTransition, animated } from "react-spring";
+import {
+  Route,
+  Switch,
+  useHistory,
+  useParams,
+  useLocation,
+} from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
-import CardScreen from "./screens/CartScreen";
+import CartScreen from "./screens/CartScreen";
 import loginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -13,35 +19,39 @@ import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 
+const routes = [
+  { path: "/", Component: HomeScreen },
+  { path: "/cart/:id", Component: CartScreen },
+  { path: "/product/:id", Component: ProductScreen },
+  { path: "/profile", Component: ProfileScreen },
+  { path: "/register", Component: RegisterScreen },
+  { path: "/login", Component: loginScreen },
+  { path: "/shipping", Component: ShippingScreen },
+  { path: "/placeorder", Component: PlaceOrderScreen },
+  { path: "/payment", Component: PaymentScreen },
+  { path: "/order/:id", Component: OrderScreen },
+];
+
 const MainApp = () => {
-  const location = useLocation();
-  const transitions = useTransition(location, (location) => location.pathname, {
-    from: {
-      opacity: 0,
-      transform: "translate3d(100%, 0, 0)",
-    },
-    enter: { opacity: 1, transform: "translate3d(0, 0, 0)" },
-    leave: { opacity: 0, transform: "translate3d(-50%,0,0)" },
+  let location = useLocation();
+  let history = useHistory();
+  let match = useParams();
 
-    unique: true,
-    reset: true,
-  });
-
-  return transitions.map(({ item: location, props, key }) => (
-    <animated.div key={key} style={props}>
-      <Switch location={location}>
-        <Route path="/order/:id" component={OrderScreen} exact />
-        <Route path="/payment" component={PaymentScreen} exact />
-        <Route path="/placeorder" component={PlaceOrderScreen} exact />
-        <Route path="/shipping" component={ShippingScreen} exact />
-        <Route path="/login" component={loginScreen} exact />
-        <Route path="/register" component={RegisterScreen} exact />
-        <Route path="/profile" component={ProfileScreen} exact />
-        <Route path="/product/:id" component={ProductScreen} />
-        <Route path="/cart/:id?" component={CardScreen} />
-        <Route path="/" component={HomeScreen} exact />
-      </Switch>
-    </animated.div>
+  return routes.map(({ path, Component }) => (
+    <Route key={path} exact path={path}>
+      {({ match }) => (
+        <CSSTransition
+          in={match != null}
+          timeout={300}
+          classNames="page"
+          unmountOnExit
+        >
+          <div className="page">
+            <Component location={location} history={history} match={match} />
+          </div>
+        </CSSTransition>
+      )}
+    </Route>
   ));
 };
 
