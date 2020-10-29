@@ -32,9 +32,6 @@ const PlaceOrderScreen = ({ history, match }) => {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;
 
-  console.log("match", match);
-  console.log("order", order);
-
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
